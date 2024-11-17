@@ -21,6 +21,31 @@
             <groupId>com.fudy</groupId>
             <artifactId>fudy-shop-gateway-interfaces</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.fudy</groupId>
+            <artifactId>fudy-shop-gateway-application</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fudy</groupId>
+            <artifactId>fudy-shop-gateway-infrastructure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fudy</groupId>
+            <artifactId>fudy-shop-gateway-domain</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fudy</groupId>
+            <artifactId>fudy-shop-gateway-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>
