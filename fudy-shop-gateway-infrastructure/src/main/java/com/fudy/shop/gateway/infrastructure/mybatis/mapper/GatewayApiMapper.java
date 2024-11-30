@@ -19,12 +19,12 @@ public interface GatewayApiMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     @Insert("insert into gateway_api(created_time,modified_time,api_name,method_name,parameter_types,version) " +
             "values(now(), now(), #{apiName}, #{methodName}, #{parameterTypes}, #{version})")
-    void insert(GatewayApiDO userDO);
+    void insert(GatewayApiDO gatewayApiDO);
 
     /** 更新 */
     @Update("update gateway_api set modified_time=now(), api_name=#{apiName}, method_name=#{methodName}, " +
             "parameter_types=#{parameterTypes}, version=#{version} where id = #{id}")
-    void update(GatewayApiDO userDO);
+    void update(GatewayApiDO gatewayApiDO);
 
     /** 删除 */
     @Delete("delete from gateway_api where id = #{id}")
