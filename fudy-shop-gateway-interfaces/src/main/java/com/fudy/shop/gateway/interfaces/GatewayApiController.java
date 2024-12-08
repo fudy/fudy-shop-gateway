@@ -1,10 +1,7 @@
 package com.fudy.shop.gateway.interfaces;
 
 import com.fudy.shop.gateway.application.GatewayApiManager;
-import com.fudy.shop.gateway.application.dto.CreateApiCommand;
-import com.fudy.shop.gateway.application.dto.GatewayApiDTO;
-import com.fudy.shop.gateway.application.dto.Result;
-import com.fudy.shop.gateway.application.dto.UpdateApiCommand;
+import com.fudy.shop.gateway.application.dto.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -76,6 +73,18 @@ public class GatewayApiController {
             log.error("failed to update api", e);
             return Result.fail(e.getMessage());
         }
+    }
+
+    @PostMapping("/apis/{id}")
+    public Result<Object> execute(@PathVariable("id") Long id, ExecuteApiCommand command) {
+        try {
+            Object data = gatewayApiManager.execute(id, command);
+            return Result.success(data);
+        } catch (Exception e) {
+            log.error("failed to execute api", e);
+            return Result.fail(e.getMessage());
+        }
+
     }
 
 

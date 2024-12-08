@@ -2,10 +2,12 @@ package com.fudy.shop.gateway.application;
 
 import com.fudy.shop.gateway.application.assembler.GatewayApiAssembler;
 import com.fudy.shop.gateway.application.dto.CreateApiCommand;
+import com.fudy.shop.gateway.application.dto.ExecuteApiCommand;
 import com.fudy.shop.gateway.application.dto.GatewayApiDTO;
 import com.fudy.shop.gateway.application.dto.UpdateApiCommand;
 import com.fudy.shop.gateway.domain.model.GatewayApi;
 import com.fudy.shop.gateway.domain.service.GatewayApiService;
+import org.apache.dubbo.rpc.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,8 @@ public class GatewayApiManager {
     private GatewayApiService service;
     @Autowired
     private GatewayApiAssembler assembler;
+    @Autowired
+    private GatewayApiProxyFactory factory;
 
     public List<GatewayApiDTO> findAllApiList() {
         List<GatewayApi> list = service.findAllApiList();
@@ -42,5 +46,10 @@ public class GatewayApiManager {
         GatewayApi gatewayApi = assembler.toGatewayApi(updateApiCommand);
         gatewayApi.setId(id);
         service.updateApi(gatewayApi);
+    }
+
+    public Object execute(Long id, ExecuteApiCommand command) throws Exception {
+        GatewayApiProxy apiProxy = factory.getApi(id);
+        return apiProxy.execute(command.getArgs());
     }
 }

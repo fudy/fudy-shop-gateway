@@ -9,7 +9,7 @@ public class UpdateApiCommand {
     /** 方法名 */
     private String methodName;
     /** 参数名 */
-    private String parameterTypes;
+    private String[] parameterTypes;
     /** 版本号 */
     private String version;
 }
