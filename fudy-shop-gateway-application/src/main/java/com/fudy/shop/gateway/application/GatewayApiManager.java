@@ -21,6 +21,8 @@ public class GatewayApiManager {
     private GatewayApiAssembler assembler;
     @Autowired
     private GatewayApiProxyFactory factory;
+    @Autowired
+    private MessageSender messageSender;
 
     public List<GatewayApiDTO> findAllApiList() {
         List<GatewayApi> list = service.findAllApiList();
@@ -35,17 +37,23 @@ public class GatewayApiManager {
     public GatewayApiDTO createApi(CreateApiCommand createApiCommand) {
         GatewayApi api = assembler.toGatewayApi(createApiCommand);
         service.createApi(api);
+        // factory.saveApi(api);
+        messageSender.send(String.valueOf(api.getId()));
         return assembler.toGatewayApiDTO(api);
     }
 
     public void removeApi(Long id) {
         service.removeApi(id);
+        messageSender.send(String.valueOf(id));
+        //factory.removeApi(id);
     }
 
     public void updateApi(Long id, UpdateApiCommand updateApiCommand) {
         GatewayApi gatewayApi = assembler.toGatewayApi(updateApiCommand);
         gatewayApi.setId(id);
         service.updateApi(gatewayApi);
+        // factory.saveApi(gatewayApi);
+        messageSender.send(String.valueOf(id));
     }
 
     public Object execute(Long id, ExecuteApiCommand command) throws Exception {

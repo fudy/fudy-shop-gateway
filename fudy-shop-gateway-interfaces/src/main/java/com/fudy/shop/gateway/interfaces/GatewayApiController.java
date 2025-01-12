@@ -76,7 +76,7 @@ public class GatewayApiController {
     }
 
     @PostMapping("/apis/{id}")
-    public Result<Object> execute(@PathVariable("id") Long id, ExecuteApiCommand command) {
+    public Result<Object> execute(@PathVariable("id") Long id, @RequestBody ExecuteApiCommand command) {
         try {
             Object data = gatewayApiManager.execute(id, command);
             return Result.success(data);
